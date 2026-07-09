@@ -1,0 +1,14 @@
+===== FIT AUDIT =====
+  PASS  plate radius vs interior: PLATE_R 51.9 <= interiorR-0.8 52.1
+  PASS  boss/hole coords identical: 4 points from one source, r=41.9
+  PASS  wheel within plate: wheel outer 34.6 <= 50.9
+  PASS  two motors fit pocket: pair 52.0 <= 52.8
+  PASS  motor width in pocket: gearbox 12.0 <= 12.4
+  PASS  wheel ground contact: wheel bottom z=0.0
+  PASS  ground clearance: plate bottom 4.0 above ground
+  PASS  caster ball to ground: ball bottom z=0.0
+  PASS  caster retains ball: opening r5.1 < ball r6.3
+  PASS  cam holes on pcb: 21.0x12.5 in 25.0x24.0
+  PASS  pi mount on deck: 58.0x49.0
+  PASS  caster clear of pocket: casterY 38.0 vs pocket
+  RESULT: ALL PASS 

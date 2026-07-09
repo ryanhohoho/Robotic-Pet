@@ -1,0 +1,69 @@
+# all hardware pins and tuning values live here so code stays clean
+# pin numbers are BCM
+
+motors:
+  # tb6612fng wiring
+  left:
+    in1: 17
+    in2: 27
+    pwm: 12    # PWMA, hardware pwm capable
+  right:
+    in1: 23
+    in2: 24
+    pwm: 13    # PWMB, hardware pwm capable
+  standby: 25  # STBY, high = enabled
+  max_speed: 0.8   # 0..1 cap so it doesn't launch off a table
+
+eyes:
+  left_address: 0x3C
+  right_address: 0x3D   # requires address jumper on one display, else use tca9548a mux
+  width: 128
+  height: 64
+  fps: 30
+
+camera:
+  width: 640
+  height: 480
+  fps: 15   # keep low, pi 3 b+ cpu budget is tight
+
+vision:
+  motion_ratio: 0.02           # fraction of pixels changed to count as motion
+  motion_cooldown_s: 1.0
+  face_every_n_frames: 5       # haar cascade is the expensive detector
+  face_cooldown_s: 1.0
+  obstacle_edge_density: 0.12  # edge fraction in bottom strip = something ahead
+  obstacle_cooldown_s: 0.5
+
+audio:
+  sample_rate: 16000
+  block_size: 1024
+  loudness_threshold_db: -20   # rms gate for "heard something"
+  cooldown_s: 1.5              # debounce so sustained noise fires once
+
+imu:
+  address: 0x68
+  bus: 1
+  poll_hz: 50
+  bump_threshold_g: 1.8
+  pickup_threshold_g: 0.4   # sustained low-g = lifted
+  pickup_window_s: 0.15
+  putdown_window_s: 0.8
+  bump_cooldown_s: 1.0
+
+brain:
+  tick_hz: 20
+  idle_timeout_s: 30
+
+# global tuning knobs applied to ALL movement and routine timing.
+# tune routines once in simulation using relative values, then correct
+# real-hardware behavior here without rewriting any routine:
+#   turns too wide  -> lower turn_scale
+#   everything fast -> lower speed_scale
+#   timing drifted  -> adjust duration_scale
+#   veers one way   -> nudge left_trim / right_trim
+calibration:
+  speed_scale: 1.0      # multiplier on every wheel speed (forward component)
+  turn_scale: 1.0       # multiplier on the differential (turning) component
+  duration_scale: 1.0   # multiplier on every routine step duration
+  left_trim: 1.0        # per-wheel correction for motor mismatch (0..~1.2)
+  right_trim: 1.0

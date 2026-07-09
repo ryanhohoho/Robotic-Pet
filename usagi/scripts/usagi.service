@@ -1,0 +1,22 @@
+# systemd unit to autostart usagi on boot and restart it on crash.
+# edit User and the paths if your repo isn't at /home/pi/usagi, then:
+#   sudo cp scripts/usagi.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now usagi
+#   journalctl -u usagi -f      # watch logs
+[Unit]
+Description=Robotic Usagi Pet
+After=multi-user.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/usagi
+ExecStart=/home/pi/usagi/.venv/bin/python -m usagi.main
+Restart=on-failure
+RestartSec=3
+# give hardware (camera, i2c) a moment after boot before starting
+ExecStartPre=/bin/sleep 5
+
+[Install]
+WantedBy=multi-user.target

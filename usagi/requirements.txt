@@ -1,0 +1,10 @@
+# core hardware libs, all actively maintained as of mid-2026
+gpiozero>=2.0          # motor gpio control, clean api, official rpi library
+# picamera2 installed via apt (python3-picamera2), not pip -- see README
+opencv-python-headless>=4.9  # or apt python3-opencv on the pi (faster install)
+# luma.oled removed in v2 -- OLED eyes dropped, face is painted (see face/eyes.py NullEyes)
+sounddevice>=0.4.6     # usb mic capture via portaudio
+numpy>=1.26            # audio/vision math
+smbus2>=0.4.3          # i2c for mpu6050
+transitions>=0.9       # behavior state machine
+PyYAML>=6.0            # config loading
